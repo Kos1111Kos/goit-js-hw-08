@@ -171,7 +171,7 @@ function handleImg(event) {
     return;
   }
   const original = event.target.dataset.source;
-  const description = event.target.querySelector("img").alt;
+  const description = event.target.querySelector("img");
 
   instance = basicLightbox.create(
     `<div class="gallery-item">
