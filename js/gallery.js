@@ -1,5 +1,3 @@
-import * as basicLightbox from "basiclightbox";
-
 const images = [
   {
     preview:
@@ -111,6 +109,46 @@ const images = [
 
 // document.addEventListener("keydown", closeOnEscape);
 
+// const galleryList = document.querySelector(".gallery");
+
+// const markup = images.map(({ preview, original, description }) => {
+//   return `<li class="gallery-item">
+//     <a class="gallery-link" href="${original}">
+//       <img class="gallery-image" src="${preview}" data-source="${original}" alt="${description}"/>
+//     </a>
+//   </li>`;
+// });
+
+// galleryList.insertAdjacentHTML("beforeend", markup.join(""));
+
+// galleryList.addEventListener("click", handleImg);
+
+// function handleImg(event) {
+//   event.preventDefault();
+//   if (event.target === event.currentTarget) {
+//     return;
+//   }
+//   const original = event.target.dataset.source;
+//   const description = event.target.querySelector("img").alt;
+
+//   let instance = basicLightbox.create(
+//     `<div class="gallery-item">
+//       <a class="gallery-link" href="${original}">
+//         <img class="gallery-image" src="${original}" alt="${description}"/>
+//       </a>
+//     </div>`
+//   );
+//   instance.show();
+// }
+
+// function closeOnEscape(event) {
+//   if (event.key === "Escape") {
+//     instance.close();
+//   }
+// }
+
+// document.addEventListener("keydown", closeOnEscape);
+
 const galleryList = document.querySelector(".gallery");
 
 const markup = images.map(({ preview, original, description }) => {
@@ -125,6 +163,8 @@ galleryList.insertAdjacentHTML("beforeend", markup.join(""));
 
 galleryList.addEventListener("click", handleImg);
 
+let instance; // объявляем переменную здесь, чтобы она была доступна в обоих функциях
+
 function handleImg(event) {
   event.preventDefault();
   if (event.target === event.currentTarget) {
@@ -133,7 +173,7 @@ function handleImg(event) {
   const original = event.target.dataset.source;
   const description = event.target.querySelector("img").alt;
 
-  let instance = basicLightbox.create(
+  instance = basicLightbox.create(
     `<div class="gallery-item">
       <a class="gallery-link" href="${original}">
         <img class="gallery-image" src="${original}" alt="${description}"/>
@@ -141,12 +181,14 @@ function handleImg(event) {
     </div>`
   );
   instance.show();
+
+  document.addEventListener("keydown", closeOnEscape); // добавляем обработчик события после создания экземпляра
 }
 
 function closeOnEscape(event) {
-  if (event.key === "Escape") {
-    basicLightbox.close();
+  if (event.key === "Escape" && instance) {
+    // проверяем, что instance определен
+    instance.close();
+    document.removeEventListener("keydown", closeOnEscape); // удаляем обработчик события после закрытия
   }
 }
-
-document.addEventListener("keydown", closeOnEscape);
