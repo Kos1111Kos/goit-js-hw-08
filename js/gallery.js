@@ -89,20 +89,27 @@ function handleImg(event) {
   const description = event.target.querySelector("img");
 
   instance = basicLightbox.create(
-    `<div class="gallery-item">
-      <a class="gallery-link" href="${original}">
-        <img class="gallery-image" src="${original}" alt="${description}"/>
-      </a>
-    </div>`
+    `<div >
+      <img class="gallery-image" src="${original}" alt="${description}"/>
+    </div>`,
+    {
+      onShow: (instance) => {
+        document.addEventListener("keydown", (event) =>
+          closeOnEscape(event, instance)
+        );
+      },
+      onClose: (instance) => {
+        document.removeEventListener("keydown", (event) =>
+          closeOnEscape(event, instance)
+        );
+      },
+    }
   );
   instance.show();
-
-  document.addEventListener("keydown", closeOnEscape);
 }
 
-function closeOnEscape(event) {
-  if (event.key === "Escape" && instance) {
+function closeOnEscape(event, instance) {
+  if (event.code === "Escape" && instance) {
     instance.close();
-    document.removeEventListener("keydown", closeOnEscape);
   }
 }
