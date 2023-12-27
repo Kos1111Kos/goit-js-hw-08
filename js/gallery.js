@@ -64,91 +64,6 @@ const images = [
   },
 ];
 
-// const markup = [];
-
-// images.map(({ preview, original, description }) => {
-//   const img = `<li class="galery-item">
-//   <a class="gallery-link" href="${original}">
-//   <img class="gallery-image"
-//   src="${preview}"
-//   data-source="${original}"
-//   alt="${description}"/>
-//   </a>
-//   </li>`; // Добавлена закрывающая кавычка
-//   markup.push(img);
-// });
-
-// galleryList.insertAdjacentHTML("beforeend", markup.join(""));
-
-// galleryList.addEventListener("click", handleImg);
-
-// function handleImg(event) {
-//   event.preventDefault();
-//   if (event.target === event.currentTarget) {
-//     return;
-//   }
-//   const original = event.target.dataset.source;
-//   const description = event.target.dataset.description;
-
-//   const instance = basicLightbox.create(
-//     `<li class="gallery-item"> <a class="gallery-link" href="${original}">
-//     <img class="gallery-image"
-//     src="${original}"
-//     alt="${description}"/>
-//     </a>
-//     </li>`
-//   );
-//   instance.show();
-// }
-
-// function closeOnEscape(event) {
-//   if (event.key === "Escape") {
-//     basicLightbox.close();
-//   }
-// }
-
-// document.addEventListener("keydown", closeOnEscape);
-
-// const galleryList = document.querySelector(".gallery");
-
-// const markup = images.map(({ preview, original, description }) => {
-//   return `<li class="gallery-item">
-//     <a class="gallery-link" href="${original}">
-//       <img class="gallery-image" src="${preview}" data-source="${original}" alt="${description}"/>
-//     </a>
-//   </li>`;
-// });
-
-// galleryList.insertAdjacentHTML("beforeend", markup.join(""));
-
-// galleryList.addEventListener("click", handleImg);
-
-// function handleImg(event) {
-//   event.preventDefault();
-//   if (event.target === event.currentTarget) {
-//     return;
-//   }
-//   const original = event.target.dataset.source;
-//   const description = event.target.querySelector("img").alt;
-
-//   let instance = basicLightbox.create(
-//     `<div class="gallery-item">
-//       <a class="gallery-link" href="${original}">
-//         <img class="gallery-image" src="${original}" alt="${description}"/>
-//       </a>
-//     </div>`
-//   );
-//   instance.show();
-// }
-
-// function closeOnEscape(event) {
-//   if (event.key === "Escape") {
-//     instance.close();
-//   }
-// }
-
-// document.addEventListener("keydown", closeOnEscape);
-
 const galleryList = document.querySelector(".gallery");
 
 const markup = images.map(({ preview, original, description }) => {
@@ -163,7 +78,7 @@ galleryList.insertAdjacentHTML("beforeend", markup.join(""));
 
 galleryList.addEventListener("click", handleImg);
 
-let instance; // объявляем переменную здесь, чтобы она была доступна в обоих функциях
+let instance;
 
 function handleImg(event) {
   event.preventDefault();
@@ -182,13 +97,12 @@ function handleImg(event) {
   );
   instance.show();
 
-  document.addEventListener("keydown", closeOnEscape); // добавляем обработчик события после создания экземпляра
+  document.addEventListener("keydown", closeOnEscape);
 }
 
 function closeOnEscape(event) {
   if (event.key === "Escape" && instance) {
-    // проверяем, что instance определен
     instance.close();
-    document.removeEventListener("keydown", closeOnEscape); // удаляем обработчик события после закрытия
+    document.removeEventListener("keydown", closeOnEscape);
   }
 }

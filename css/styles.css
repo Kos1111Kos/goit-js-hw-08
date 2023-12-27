@@ -43,11 +43,11 @@ p {
   /* margin: 0 16px 16px 0; */
   object-fit: cover;
 }
-.basicLightbox__placeholder {
+/* .basicLightbox__placeholder {
   position: absolute;
 
   padding: 28px 164px;
   width: 1112px;
   height: 640px;
   max-width: 100%;
-}
+} */
